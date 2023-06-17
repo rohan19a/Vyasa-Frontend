@@ -39,3 +39,18 @@ password {
     display: block;
     margin-bottom: 10px;
 }
+
+  #elements {
+    margin-top: 20px;
+  }
+  
+  .element {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+.element:hover {
+        background-color: #eee;
+ }

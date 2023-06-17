@@ -1,6 +1,5 @@
 loginIn = false;
 
-
 function handleAdd() {
     if (!loginIn) {
         return false;
