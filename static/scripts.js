@@ -1,4 +1,10 @@
+loginIn = false;
+
+
 function handleAdd() {
+    if (!loginIn) {
+        return false;
+    }
     var elementsDiv = document.getElementById("elements");
   
     var newElementDiv = document.createElement("div");
@@ -38,12 +44,18 @@ function addElements(username) {
 
 
 function handleRemove() {
+    if (!loginIn) {
+        return false;
+    }
     var elementsDiv = document.getElementById("elements");
     var lastElementDiv = elementsDiv.lastElementChild;
     elementsDiv.removeChild(lastElementDiv);
 }
 
 function handleSave() {
+    if (!loginIn) {
+        return false;
+    }
     var elementsDiv = document.getElementById("elements");
     var lastElementDiv = elementsDiv.lastElementChild;
     var inputs = lastElementDiv.getElementsByTagName("input");
@@ -52,17 +64,4 @@ function handleSave() {
         data[inputs[i].placeholder] = inputs[i].value;
     }
     console.log(data);
-    $.ajax({
-        type: "POST",
-        url: "/create",
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data){
-            alert(data);
-        },
-        failure: function(errMsg) {
-            alert(errMsg);
-        }
-    });
 }
