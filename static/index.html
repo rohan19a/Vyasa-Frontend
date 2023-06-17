@@ -7,7 +7,12 @@
     <script src="scripts.js"></script>
 </head>
 <body>
+    <textarea id="username" placeholder="Email"></textarea>
+    <textarea id="password" placeholder="Password"></textarea>
+    <button id="login" onclick="handleLogin()">Login</button>
+    
     <button id="addElement" onclick="handleAdd()">Add Member</button>
+    <button id="removeElement" onclick="handleRemove()">Delete Member</button>
     <button id="save" onclick="handleSave()">Save Changes</button>
     <div id="elements">        
     </div>

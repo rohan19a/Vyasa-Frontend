@@ -30,3 +30,12 @@ textarea {
     box-sizing: border-box;
     resize: none;
 }
+username {
+    display: block;
+    margin-bottom: 10px;
+
+}
+password {
+    display: block;
+    margin-bottom: 10px;
+}
