@@ -38,8 +38,19 @@ function verifyLogin(login, password) {
 }
 
 function addElements(username) {
-    //make an api request to get the elements
-    return true
+    var elementsDiv = document.getElementById("elements");
+  
+    var newElementDiv = document.createElement("div");
+    newElementDiv.className = "element";
+
+    list = ["attributeId", "emailId", "name", "role", "description", "authority", "department"];
+    for (var i = 0; i < list.length; i++) {
+        var input = document.createElement("input");
+        input.type = "text";
+        input.value = list[i]
+        newElementDiv.appendChild(input);
+    }
+    elementsDiv.appendChild(newElementDiv);
 }
 
 
