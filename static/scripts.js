@@ -195,8 +195,27 @@ function handleSave() {
 }
 
 
+
 function handleTest() {
-    fetch(url + '/get')
+    const inputText = document.getElementById('InputText').value;  // Get the value from the textbox
+    const OutputText = document.getElementById('OutputText');
+    const email_id = document.getElementById('username').value;
+
+    fetch(url + '/demo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            messages: [
+                {
+                    role: 'user',
+                    content: inputText,
+                    email_id: email_id
+                }
+            ]
+        })
+    })
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -204,7 +223,13 @@ function handleTest() {
             throw new Error('Failed to retrieve elements');
         }
     })
-
-    output.value = "Test";
+    .then(data => {
+        // Handle the response data
+        OutputText.value = data;
+    })
+    .catch(error => {
+        // Handle errors
+        console.error(error);
+        output.value = 'Error: ' + error.message;  // Update the output with the error message
+    });
 }
-
