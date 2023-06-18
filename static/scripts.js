@@ -1,6 +1,19 @@
 loginIn = false;
 val = false;
 
+var config = 'local'
+var url = 'http://127.0.0.1:5000'
+var launched_url = 'https://vyasa.azurewebsites.net'
+
+if (config == 'local') {
+    url = 'http://127.0.0.1:5000'
+} else if (config == 'launched') {
+    url = launched_url
+}
+
+// 
+const output = document.getElementById('OutputText');
+
 function handleAdd() {
     if (!loginIn && !val) {
         return false;
@@ -31,7 +44,7 @@ function handleSignup() {
     };
 
     // Make a POST request to the server
-    fetch('/signup', {
+    fetch(url + '/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +53,6 @@ function handleSignup() {
     })
     .then(response => {
         if (response.ok) {
-            // User created successfully, perform login
             handleLogin();
         } else {
             // Display error message
@@ -56,23 +68,26 @@ function handleSignup() {
 function handleLogin() {
     login = document.getElementById("username");
     password = document.getElementById("password");
-    val = (login.value == "admin" || password.value == "admin")
+    val = (login.value == "admin" && password.value == "admin")
 
-    if (val || verifyLogin(login.value, password.value)) {
+    login_valid = verifyLogin(login.value, password.value)
+
+    if (login_valid || val) {
         //addElements(login.value);
+        loginIn = true;
         login.style.display = "none";
         password.style.display = "none";
 }
 }
 
 function verifyLogin(login, password) {
-    return fetch('https://api.example.com/login', {
+    return fetch(url + '/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            login: login,
+            username: login,
             password: password
         })
     })
@@ -84,8 +99,6 @@ function verifyLogin(login, password) {
         }
     })
     .then(data => {
-        // Process the response data
-        // Assuming the API returns a JSON object with a 'success' field
         if (data.success) {
             return true;
         } else {
@@ -103,7 +116,10 @@ function addElements(username) {
     var elementsDiv = document.getElementById("elements");
 
     // Make a GET request to the API endpoint
-    fetch('/get')
+    fetch(url + '/get')
+    request = {
+        username: username
+    }
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -146,7 +162,7 @@ function handleRemove() {
 }
 
 function handleSave() {
-    if (!loggedIn) {
+    if (!loginIn) {
         return false;
     }
   
@@ -159,7 +175,7 @@ function handleSave() {
     }
   
     // Make a POST request to the API endpoint
-    fetch('/update', {
+    fetch(url + '/update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -177,3 +193,18 @@ function handleSave() {
         console.error('Error:', error);
     });
 }
+
+
+function handleTest() {
+    fetch(url + '/get')
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to retrieve elements');
+        }
+    })
+
+    output.value = "Test";
+}
+
