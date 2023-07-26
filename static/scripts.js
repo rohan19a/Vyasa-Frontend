@@ -21,7 +21,7 @@ function handleAdd() {
     var elementsDiv = document.getElementById("elements");
   
     var newElementDiv = document.createElement("div");
-    newElementDiv.className = "element";
+    newElementDiv.className = "member-container"; // Use the new class for consistent styling
 
     list = ["attributeId", "emailId", "name", "role", "description", "authority", "department"];
     for (var i = 0; i < list.length; i++) {
